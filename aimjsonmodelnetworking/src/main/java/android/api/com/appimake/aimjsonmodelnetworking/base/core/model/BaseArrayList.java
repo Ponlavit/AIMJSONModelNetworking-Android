@@ -2,7 +2,6 @@ package android.api.com.appimake.aimjsonmodelnetworking.base.core.model;
 
 import android.api.com.appimake.aimjsonmodelnetworking.base.AIMConfig;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.enumulation.UpdatePolicy;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.exception.NotYetImplementedException;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.exception.UnsupportedClassException;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.intf.IJSONEnable;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.intf.IRestServiceObjectDelegate;
@@ -95,13 +94,14 @@ public class BaseArrayList<T> extends ArrayList implements IJSONEnable, IRestSer
     }
 
     public void updateFromJson(String json, UpdatePolicy policy) {
-
         JSONParser parser = JsonParserFactory.getInstance().newJsonParser();
         Map jsonData = parser.parseJson(json);
         if (jsonData.containsKey(AIMConfig.RESPONSE_ENTRIES)) {
             if (jsonData.get(AIMConfig.RESPONSE_ENTRIES) != null && !jsonData.get(AIMConfig.RESPONSE_ENTRIES).equals("null"))
                 updateFromArray((List) jsonData.get(AIMConfig.RESPONSE_ENTRIES), policy);
-            else clear();
+            else if (policy == UpdatePolicy.UseNewest
+                    || policy == UpdatePolicy.ForceUpdate)
+                clear();
         } else {
             if (!jsonData.isEmpty())
                 updateFromArray((List) jsonData, policy);
@@ -118,20 +118,29 @@ public class BaseArrayList<T> extends ArrayList implements IJSONEnable, IRestSer
                 clear();
                 break;
             case UseNewest:
-                // Check if JSON from server have a new activity or deleted old activity
-                if (list.size() <= 0)
+                if (list.size() <= 0) {
                     this.clear();
-                else if (this.size() >= 0)
+                } else {
+                    ArrayList tmpDelete = new ArrayList();
                     for (int i = 0; i < this.size(); i++) {
-                        boolean isNoHave = true;
+
+                        boolean isNotHaveFromServer = true;
+                        long IDFromLocalObject = ((BaseModel) this.get(i)).unique_id;
+
                         for (int j = 0; j < list.size(); j++) {
-                            if (Long.parseLong(((HashMap) list.get(j)).get("unique_id").toString().trim()) == ((BaseModel) this.get(i)).unique_id) {
-                                isNoHave = false;
+
+                            long IDFromServerObject = Long.parseLong(((HashMap) list.get(j)).get("unique_id").toString().trim());
+
+                            if (IDFromServerObject == IDFromLocalObject) {
+                                isNotHaveFromServer = false;
                             }
                         }
-                        if (isNoHave)
-                            this.remove(i);
+
+                        if (isNotHaveFromServer)
+                            tmpDelete.add(this.get(i));
                     }
+                    this.removeAll(tmpDelete);
+                }
                 break;
             case MergeToNewest:
                 break;
@@ -146,7 +155,8 @@ public class BaseArrayList<T> extends ArrayList implements IJSONEnable, IRestSer
                     BaseModel base = (BaseModel) getGenericType().newInstance();
                     if (item instanceof Map) {
                         base.updateFromInfo((Map<String, Object>) item, policy);
-                        add(base);
+                        if (base.active_flag)
+                            add(base);
                     } else {
                         throw new UnsupportedOperationException();
                     }
@@ -156,13 +166,12 @@ public class BaseArrayList<T> extends ArrayList implements IJSONEnable, IRestSer
                     e.printStackTrace();
                 }
             } else if (UpdatePolicy.MergeToNewest == policy)
-                throw new NotYetImplementedException();
-            else if (UpdatePolicy.UseNewest == policy) {
                 try {
                     BaseModel base = (BaseModel) getGenericType().newInstance();
                     if (item instanceof Map) {
                         // loop all old data
                         boolean isHave = false;
+                        ArrayList tmpMergeToNewest = new ArrayList();
                         for (int thisCount = 0; thisCount < this.size(); thisCount++) {
                             // Check if 'id' in this index(old data) is equal to fetching list(new data)
                             // if true, Check timestamp
@@ -171,14 +180,81 @@ public class BaseArrayList<T> extends ArrayList implements IJSONEnable, IRestSer
                                     // Check if timestamp in list of fetching is updated(new)
                                     // if true, Update data
                                     // if false, do nothing
-                                    if (((BaseModel) this.get(thisCount)).updatedate.getTime() < Long.parseLong(((HashMap) list.get(i)).get("updatedate").toString().trim().replace(".", ""))) {
-                                        base.updateFromInfo((Map<String, Object>) item, UpdatePolicy.ForceUpdate);
-                                        set(thisCount, base);
+
+                                    String myTime = (((BaseModel) this.get(thisCount)).updatedate.getTime() + "");
+                                    String updateTime = ((HashMap) list.get(i)).get("updatedate").toString().trim().replace(".", "");
+
+                                    if (!(myTime.length() < 10 || updateTime.length() < 10)) {
+
+                                        long nowTime = Long.parseLong(myTime.substring(0, 10));
+                                        long compareTime = Long.parseLong(updateTime.substring(0, 10));
+
+                                        if (nowTime < compareTime) {
+                                            base.updateFromInfo((Map<String, Object>) item, UpdatePolicy.ForceUpdate);
+                                            if (((BaseModel) this.get(thisCount)).active_flag) {
+                                                set(thisCount, base);
+                                            } else {
+                                                tmpMergeToNewest.add(this.get(thisCount));
+                                            }
+                                        }
                                     }
                                     isHave = true;
                                 }
                             }
                         }
+                        this.removeAll(tmpMergeToNewest);
+                        if (!isHave) {
+                            //Fetching list is a new data (Add to list)
+                            base.updateFromInfo((Map<String, Object>) item, UpdatePolicy.ForceUpdate);
+                            add(base);
+                        }
+
+                    } else throw new UnsupportedOperationException();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            else if (UpdatePolicy.UseNewest == policy) {
+                try {
+                    BaseModel base = (BaseModel) getGenericType().newInstance();
+                    if (item instanceof Map) {
+                        // loop all old data
+                        boolean isHave = false;
+                        ArrayList tmpUseNewest = new ArrayList();
+
+                        for (int thisCount = 0; thisCount < this.size(); thisCount++) {
+                            // Check if 'id' in this index(old data) is equal to fetching list(new data)
+                            // if true, Check timestamp
+                            if (((HashMap) list.get(i)).get("unique_id") != null) {
+                                if (Long.parseLong(((HashMap) list.get(i)).get("unique_id").toString().trim()) == ((BaseModel) this.get(thisCount)).unique_id) {
+                                    // Check if timestamp in list of fetching is updated(new)
+                                    // if true, Update data
+                                    // if false, do nothing
+                                    String localObjectTime = (((BaseModel) this.get(thisCount)).updatedate.getTime() + "");
+                                    String serverObjectTime = ((HashMap) list.get(i)).get("updatedate").toString().trim().replace(".", "");
+
+                                    if (!(localObjectTime.length() < 10 || serverObjectTime.length() < 10)) {
+
+                                        long nowTime = Long.parseLong(localObjectTime.substring(0, 10));
+                                        long compareTime = Long.parseLong(serverObjectTime.substring(0, 10));
+
+                                        if (nowTime < compareTime) {
+                                            base.updateFromInfo((Map<String, Object>) item, UpdatePolicy.ForceUpdate);
+                                            if (((BaseModel) this.get(thisCount)).active_flag) {
+                                                set(thisCount, base);
+                                            } else {
+                                                tmpUseNewest.add(this.get(thisCount));
+                                            }
+                                        }
+                                    }
+
+                                    isHave = true;
+                                }
+                            }
+                        }
+                        this.removeAll(tmpUseNewest);
+
                         if (!isHave) {
                             //Fetching list is a new data (Add to list)
                             base.updateFromInfo((Map<String, Object>) item, UpdatePolicy.ForceUpdate);
