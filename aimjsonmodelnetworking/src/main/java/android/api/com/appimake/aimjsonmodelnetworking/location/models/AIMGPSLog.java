@@ -3,14 +3,14 @@ package android.api.com.appimake.aimjsonmodelnetworking.location.models;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.ColumnType;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.IQueryObject;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.JSONVariable;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseModel;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMModel;
 
 /**
  * Created by nattapongr on 8/24/15 AD.
  */
 
 @IQueryObject(name = "gps_log")
-public class AIMGPSLog extends BaseModel {
+public class AIMGPSLog extends AIMModel {
     @JSONVariable
     private boolean isActive;
 

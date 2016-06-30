@@ -1,12 +1,12 @@
 package android.api.com.appimake.aimjsonmodelnetworking.location.models;
 
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.JSONVariable;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseModel;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMModel;
 
 /**
  * Created by nattapongr on 1/20/16 AD.
  */
-public class AIMGPSTrakingModel extends BaseModel {
+public class AIMGPSTrakingModel extends AIMModel {
 
     @JSONVariable
     private String lat;

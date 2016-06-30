@@ -1,9 +1,9 @@
 package android.api.com.appimake.aimjsonmodelnetworking.webapi;
 
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.converter.UnicodeConverter;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseArrayList;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseDateTime;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseModel;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMArrayList;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMDateTime;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMModel;
 import android.api.com.appimake.aimjsonmodelnetworking.repository.AIMObjectFactory;
 import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.IWebAPINotification;
 import android.api.com.appimake.aimjsonmodelnetworking.webapi.models.Add;
@@ -48,10 +48,10 @@ public class AIMWebAPI {
         AIMObjectFactory.register(TransactionResponse.class);
     }
 
-    public void createNewTransaction(BaseModel objectToSent, String tag, String url, String target, String module, String token) {
+    public void createNewTransaction(AIMModel objectToSent, String tag, String url, String target, String module, String token) {
         String json = objectToSent.toJSONString();
         Transaction tran = new Transaction();
-        tran.setAddedDate(new BaseDateTime());
+        tran.setAddedDate(new AIMDateTime());
         tran.setFailedCount(0);
         tran.setTag(tag);
         tran.setJsonMessage(json);
@@ -60,12 +60,12 @@ public class AIMWebAPI {
         tran.setSenderToken(token);
         tran.setSuccess(false);
         tran.setTargetURL(url);
-        tran.updatedate = new BaseDateTime();
+        tran.updatedate = new AIMDateTime();
         AIMObjectFactory.insert(Transaction.class).asNewItem(tran);
     }
 
     public void startAllTransaction() {
-        BaseArrayList<?> transactionList = AIMObjectFactory.select(Transaction.class).getAll();
+        AIMArrayList<?> transactionList = AIMObjectFactory.select(Transaction.class).getAll();
         for (Object obj : transactionList) {
             Transaction transaction = (Transaction) obj;
             if (transaction.isSuccess()) continue;
@@ -85,7 +85,7 @@ public class AIMWebAPI {
     private synchronized boolean preUpload(Transaction transaction) {
         String json = UnicodeConverter.unicodeEscapedString(transaction.getJsonMessage());
         Add upload = new Add();
-        upload.updatedate = new BaseDateTime();
+        upload.updatedate = new AIMDateTime();
         upload.setToken(transaction.getSenderToken());
         upload.setData(json);
         upload.setModule(transaction.getModule());
@@ -123,10 +123,10 @@ public class AIMWebAPI {
         if (responseStringUnEscape != null) {
             TransactionResponse resp = new TransactionResponse();
             resp.setCode(responseCode + "");
-            resp.setAddedDate(new BaseDateTime());
+            resp.setAddedDate(new AIMDateTime());
             resp.setRef_transaction(transaction);
             resp.setResponseMessage(responseString);
-            resp.updatedate = new BaseDateTime();
+            resp.updatedate = new AIMDateTime();
             AIMObjectFactory.insert(TransactionResponse.class).asNewItem(resp);
         }
         AIMObjectFactory.update(Transaction.class).asUpdateOrReplaceItem(transaction);

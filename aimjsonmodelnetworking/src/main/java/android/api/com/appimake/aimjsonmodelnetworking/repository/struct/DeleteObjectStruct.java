@@ -1,6 +1,6 @@
 package android.api.com.appimake.aimjsonmodelnetworking.repository.struct;
 
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseModel;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMModel;
 import android.api.com.appimake.aimjsonmodelnetworking.repository.db.Table;
 import android.api.com.appimake.aimjsonmodelnetworking.repository.intf.IObjectRepository;
 
@@ -16,7 +16,7 @@ public class DeleteObjectStruct {
         this.repository = repository;
     }
 
-    public boolean delete(BaseModel target) {
+    public boolean delete(AIMModel target) {
         return repository.executeDelete(target, Table.Builder(target.getClass()));
     }
 
@@ -24,7 +24,7 @@ public class DeleteObjectStruct {
         return repository.executeDeleteTable(Table.Builder(this.classStruct));
     }
 
-    public boolean deleteObject(BaseModel target) {
+    public boolean deleteObject(AIMModel target) {
         return repository.executeDelete(target, Table.Builder(classStruct));
     }
 }

@@ -3,12 +3,12 @@ package android.api.com.appimake.aimjsonmodelnetworking.authentication.models;
 
 import android.api.com.appimake.aimjsonmodelnetworking.base.AIMConfig;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.JSONVariable;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseModel;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMModel;
 
 /**
  * Created by nattapongr on 5/14/15.
  */
-public class AIMAuthen extends BaseModel {
+public class AIMAuthen extends AIMModel {
 
     @JSONVariable
     private String tk_uid;

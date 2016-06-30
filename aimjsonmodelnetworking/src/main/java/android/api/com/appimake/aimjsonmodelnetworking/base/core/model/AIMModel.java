@@ -30,7 +30,7 @@ import java.util.Map;
  * Created by ponlavitlarpeampaisarl on 2/3/15 AD.
  */
 
-public abstract class BaseModel implements Serializable, IJSONEnable {
+public abstract class AIMModel implements Serializable, IJSONEnable {
 
     @JSONVariable
     @IQueryObject(
@@ -38,7 +38,7 @@ public abstract class BaseModel implements Serializable, IJSONEnable {
             type = ColumnType.TEXT,
             nullAble = NullableType.NOT_NULL
     )
-    public BaseDateTime updatedate;
+    public AIMDateTime updatedate;
 
     @JSONVariable
     public long unique_id;
@@ -57,18 +57,18 @@ public abstract class BaseModel implements Serializable, IJSONEnable {
     private boolean isObjectProcessing;
 
 
-    public BaseModel() {
+    public AIMModel() {
         this.isObjectFetched = false;
         this.isObjectFetching = false;
         this.isObjectProcessing = false;
     }
 
-    public BaseModel(String json, UpdatePolicy policy) {
+    public AIMModel(String json, UpdatePolicy policy) {
         this();
         this.updateFromJson(json, policy);
     }
 
-    public BaseModel(Map<String, Object> json, UpdatePolicy policy) {
+    public AIMModel(Map<String, Object> json, UpdatePolicy policy) {
         this();
         this.updateFromInfo(json, policy);
     }
@@ -83,17 +83,17 @@ public abstract class BaseModel implements Serializable, IJSONEnable {
         return this._id;
     }
 
-    protected BaseModel self() {
+    protected AIMModel self() {
         return this;
     }
 
     @Override
     public void updateTimeStamp() {
-        this.updatedate = new BaseDateTime();
+        this.updatedate = new AIMDateTime();
     }
 
     @Override
-    public BaseDateTime getUpdateDate() {
+    public AIMDateTime getUpdateDate() {
         return this.updatedate;
     }
 
@@ -150,8 +150,8 @@ public abstract class BaseModel implements Serializable, IJSONEnable {
                             root.put(name, ((Boolean) value).booleanValue() ? "1" : "0");
                         else if (aField.getType().isPrimitive() || String.class.isAssignableFrom(value.getClass())) {
                             root.put(name, value.toString().trim());
-                        } else if (BaseDateTime.class.isAssignableFrom(value.getClass()))
-                            root.put(name, ((BaseDateTime) value).toUnixTimeString());
+                        } else if (AIMDateTime.class.isAssignableFrom(value.getClass()))
+                            root.put(name, ((AIMDateTime) value).toUnixTimeString());
                         else if (IJSONEnable.class.isAssignableFrom(value.getClass()))
                             root.put(name, ((IJSONEnable) value).toJSONObject(forLocal));
                         else if (aField.getType().equals(Object.class)) {
@@ -231,18 +231,18 @@ public abstract class BaseModel implements Serializable, IJSONEnable {
                                 aField.set(this, newValue);
                             } else if (String.class.isAssignableFrom(aField.getType()))
                                 aField.set(this, newValue.toString().trim());
-                            else if (BaseDateTime.class.isAssignableFrom(aField.getType())) {
+                            else if (AIMDateTime.class.isAssignableFrom(aField.getType())) {
                                 long uTime = Long.parseLong(newValue.toString().trim().replace(".", ""));
                                 if (newValue.toString().trim().length() > 10)
                                     uTime = Long.parseLong(newValue.toString().trim().substring(0, 10));
-                                aField.set(this, new BaseDateTime(uTime));
+                                aField.set(this, new AIMDateTime(uTime));
                             } else if (IJSONEnable.class.isAssignableFrom(aField.getType())) {
-                                if (BaseArrayList.class.isAssignableFrom(aField.getType())) {
+                                if (AIMArrayList.class.isAssignableFrom(aField.getType())) {
                                     if (newValue != null && !newValue.toString().trim().equalsIgnoreCase("null")) {
-                                        ((BaseArrayList) value).updateFromArray((List) newValue, policy);
+                                        ((AIMArrayList) value).updateFromArray((List) newValue, policy);
                                         aField.set(this, value);
                                     }
-                                } else if (BaseModel.class.isAssignableFrom(aField.getType())) {
+                                } else if (AIMModel.class.isAssignableFrom(aField.getType())) {
                                     if (value == null)
                                         try {
                                             value = aField.getType().newInstance();
@@ -250,7 +250,7 @@ public abstract class BaseModel implements Serializable, IJSONEnable {
                                             e.printStackTrace();
                                         }
                                     if (newValue != null && !newValue.toString().equalsIgnoreCase("null")) {
-                                        ((BaseModel) value).updateFromInfo((Map<String, Object>) newValue, policy);
+                                        ((AIMModel) value).updateFromInfo((Map<String, Object>) newValue, policy);
                                         aField.set(this, value);
                                     }
                                 }
@@ -280,25 +280,25 @@ public abstract class BaseModel implements Serializable, IJSONEnable {
                                 aField.set(this, newValue);
                             } else if (String.class.isAssignableFrom(aField.getType()))
                                 aField.set(this, newValue.toString().trim());
-                            else if (BaseDateTime.class.isAssignableFrom(aField.getType())) {
+                            else if (AIMDateTime.class.isAssignableFrom(aField.getType())) {
                                 long uTime = Long.parseLong(newValue.toString().trim().replace(".", ""));
                                 if (newValue.toString().trim().length() > 10)
                                     uTime = Long.parseLong(newValue.toString().trim().substring(0, 10));
-                                aField.set(this, new BaseDateTime(uTime));
+                                aField.set(this, new AIMDateTime(uTime));
                             } else if (IJSONEnable.class.isAssignableFrom(aField.getType())) {
-                                if (BaseArrayList.class.isAssignableFrom(aField.getType())) {
+                                if (AIMArrayList.class.isAssignableFrom(aField.getType())) {
                                     if (newValue != null && !newValue.toString().trim().equalsIgnoreCase("null")) {
-                                        ((BaseArrayList) value).updateFromArray((List) newValue, policy);
+                                        ((AIMArrayList) value).updateFromArray((List) newValue, policy);
                                         aField.set(this, value);
                                     }
-                                } else if (BaseModel.class.isAssignableFrom(aField.getType())) {
+                                } else if (AIMModel.class.isAssignableFrom(aField.getType())) {
                                     if (value == null)
                                         try {
                                             value = aField.getType().newInstance();
                                         } catch (InstantiationException e) {
                                             e.printStackTrace();
                                         }
-                                    ((BaseModel) value).updateFromInfo((Map<String, Object>) newValue, policy);
+                                    ((AIMModel) value).updateFromInfo((Map<String, Object>) newValue, policy);
                                     aField.set(this, value);
                                 }
                             } else throw new UnsupportedClassException();
@@ -327,25 +327,25 @@ public abstract class BaseModel implements Serializable, IJSONEnable {
                                 aField.set(this, newValue);
                             } else if (String.class.isAssignableFrom(aField.getType()))
                                 aField.set(this, newValue.toString().trim());
-                            else if (BaseDateTime.class.isAssignableFrom(aField.getType())) {
+                            else if (AIMDateTime.class.isAssignableFrom(aField.getType())) {
                                 long uTime = Long.parseLong(newValue.toString().trim().replace(".", ""));
                                 if (newValue.toString().trim().length() > 10)
                                     uTime = Long.parseLong(newValue.toString().trim().substring(0, 10));
-                                aField.set(this, new BaseDateTime(uTime));
+                                aField.set(this, new AIMDateTime(uTime));
                             } else if (IJSONEnable.class.isAssignableFrom(aField.getType())) {
-                                if (BaseArrayList.class.isAssignableFrom(aField.getType())) {
+                                if (AIMArrayList.class.isAssignableFrom(aField.getType())) {
                                     if (newValue != null && !newValue.toString().trim().equalsIgnoreCase("null")) {
-                                        ((BaseArrayList) value).updateFromArray((List) newValue, policy);
+                                        ((AIMArrayList) value).updateFromArray((List) newValue, policy);
                                         aField.set(this, value);
                                     }
-                                } else if (BaseModel.class.isAssignableFrom(aField.getType())) {
+                                } else if (AIMModel.class.isAssignableFrom(aField.getType())) {
                                     if (value == null)
                                         try {
                                             value = aField.getType().newInstance();
                                         } catch (InstantiationException e) {
                                             e.printStackTrace();
                                         }
-                                    ((BaseModel) value).updateFromInfo((Map<String, Object>) newValue, policy);
+                                    ((AIMModel) value).updateFromInfo((Map<String, Object>) newValue, policy);
                                     aField.set(this, value);
                                 }
                             } else throw new UnsupportedClassException();

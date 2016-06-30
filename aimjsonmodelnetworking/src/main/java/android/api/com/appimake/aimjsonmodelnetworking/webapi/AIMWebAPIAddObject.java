@@ -1,7 +1,7 @@
 package android.api.com.appimake.aimjsonmodelnetworking.webapi;
 
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.converter.UnicodeConverter;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseDateTime;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMDateTime;
 import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.IWebAPINotification;
 import android.api.com.appimake.aimjsonmodelnetworking.webapi.models.Add;
 import android.net.Uri;
@@ -29,7 +29,7 @@ public class AIMWebAPIAddObject {
         this.url = url;
         json = UnicodeConverter.unicodeEscapedString(json);
         upload = new Add();
-        upload.updatedate = new BaseDateTime();
+        upload.updatedate = new AIMDateTime();
         upload.setToken(token);
         upload.setData(json);
         upload.setModule(module);

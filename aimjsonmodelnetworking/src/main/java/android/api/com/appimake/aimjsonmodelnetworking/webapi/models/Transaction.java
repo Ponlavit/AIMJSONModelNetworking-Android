@@ -4,14 +4,14 @@ import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.Colu
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.IQueryObject;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.JSONVariable;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.NullableType;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseDateTime;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseModel;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMDateTime;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMModel;
 
 /**
  * Created by ponlavitlarpeampaisarl on 3/30/15 AD.
  */
 @IQueryObject(name = "webapi_transaction")
-public class Transaction extends BaseModel {
+public class Transaction extends AIMModel {
 
     @JSONVariable
     @IQueryObject(
@@ -39,7 +39,7 @@ public class Transaction extends BaseModel {
             nullAble = NullableType.NOT_NULL,
             type = ColumnType.TEXT
     )
-    private BaseDateTime addedDate;
+    private AIMDateTime addedDate;
     @JSONVariable
     @IQueryObject(
             name = "is_success",
@@ -121,11 +121,11 @@ public class Transaction extends BaseModel {
         this.targetURL = targetURL;
     }
 
-    public BaseDateTime getAddedDate() {
+    public AIMDateTime getAddedDate() {
         return addedDate;
     }
 
-    public void setAddedDate(BaseDateTime addedDate) {
+    public void setAddedDate(AIMDateTime addedDate) {
         this.addedDate = addedDate;
     }
 

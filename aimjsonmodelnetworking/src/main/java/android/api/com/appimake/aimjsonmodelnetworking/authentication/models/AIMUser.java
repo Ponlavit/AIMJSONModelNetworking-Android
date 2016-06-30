@@ -2,8 +2,8 @@ package android.api.com.appimake.aimjsonmodelnetworking.authentication.models;
 
 import android.api.com.appimake.aimjsonmodelnetworking.authentication.enumulation.URLService;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.JSONVariable;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseArrayList;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseModel;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMArrayList;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMModel;
 import android.graphics.Bitmap;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by nattapongr on 5/14/15.
  */
-public class AIMUser extends BaseModel {
+public class AIMUser extends AIMModel {
 
     @JSONVariable
     private long u_id;
@@ -26,7 +26,7 @@ public class AIMUser extends BaseModel {
     @JSONVariable
     private ArrayList allow_service = new ArrayList();
     @JSONVariable
-    private BaseArrayList<AIMUserServiceURL> webapi = BaseArrayList.Builder(AIMUserServiceURL.class);
+    private AIMArrayList<AIMUserServiceURL> webapi = AIMArrayList.Builder(AIMUserServiceURL.class);
     private Bitmap profilePhoto;
 
     public String getWepAPIForKey(URLService service) {
@@ -113,11 +113,11 @@ public class AIMUser extends BaseModel {
         this.allow_service = allow_service;
     }
 
-    public BaseArrayList<AIMUserServiceURL> getWebapi() {
+    public AIMArrayList<AIMUserServiceURL> getWebapi() {
         return webapi;
     }
 
-    public void setWebapi(BaseArrayList<AIMUserServiceURL> webapi) {
+    public void setWebapi(AIMArrayList<AIMUserServiceURL> webapi) {
         this.webapi = webapi;
     }
 

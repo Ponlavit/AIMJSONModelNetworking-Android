@@ -1,7 +1,7 @@
 package android.api.com.appimake.aimjsonmodelnetworking.repository.struct;
 
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseArrayList;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseModel;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMArrayList;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMModel;
 import android.api.com.appimake.aimjsonmodelnetworking.repository.db.Table;
 import android.api.com.appimake.aimjsonmodelnetworking.repository.intf.IObjectRepository;
 
@@ -23,23 +23,23 @@ public class SelectObjectStruct {
         this.repository = repository;
     }
 
-    public BaseModel getById(long id) {
+    public AIMModel getById(long id) {
         return repository.executeSelect(target, Table.Builder(target), id);
     }
 
-    public BaseArrayList<BaseModel> getAll() {
+    public AIMArrayList<AIMModel> getAll() {
         return repository.executeSelect(target, Table.Builder(target));
     }
 
-    public BaseArrayList<BaseModel> getAll(String columnToSelect) {
+    public AIMArrayList<AIMModel> getAll(String columnToSelect) {
         return repository.executeSelect(target, Table.Builder(target), columnToSelect);
     }
 
-    public BaseArrayList<BaseModel> get(int limit, int offset) {
+    public AIMArrayList<AIMModel> get(int limit, int offset) {
         return repository.executeSelect(target, Table.Builder(target), offset, limit);
     }
 
-    public ArrayList<BaseModel> get(int limit) {
+    public ArrayList<AIMModel> get(int limit) {
         return repository.executeSelect(target, Table.Builder(target), 0, limit);
     }
 }

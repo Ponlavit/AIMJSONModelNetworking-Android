@@ -1,8 +1,8 @@
 package android.api.com.appimake.aimjsonmodelnetworking.location.service;
 
 import android.Manifest;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseArrayList;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseDateTime;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMArrayList;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMDateTime;
 import android.api.com.appimake.aimjsonmodelnetworking.intf.iGetString;
 import android.api.com.appimake.aimjsonmodelnetworking.location.intf.AIMIReciveLocationChange;
 import android.api.com.appimake.aimjsonmodelnetworking.location.models.AIMGPSLog;
@@ -116,8 +116,8 @@ public class AIMLocationManager implements LocationListener, IWebAPINotification
         });
     }
 
-    public BaseArrayList<AIMGPSLog> getGPSLog(BaseDateTime from, BaseDateTime to) {
-        BaseArrayList<AIMGPSLog> aLog = BaseArrayList.Builder(AIMGPSLog.class);
+    public AIMArrayList<AIMGPSLog> getGPSLog(AIMDateTime from, AIMDateTime to) {
+        AIMArrayList<AIMGPSLog> aLog = AIMArrayList.Builder(AIMGPSLog.class);
         aLog.addAll(AIMObjectFactory.select(AIMGPSLog.class).getAll());
         return aLog;
     }
@@ -133,7 +133,7 @@ public class AIMLocationManager implements LocationListener, IWebAPINotification
         return gps;
     }
 
-    public double getTotalDistance(BaseArrayList<AIMGPSLog> arrLog) {
+    public double getTotalDistance(AIMArrayList<AIMGPSLog> arrLog) {
         double tDis = 0.0;
         for (int i = 0; i < arrLog.size() - 1; i++) {
             AIMGPSLog first = (AIMGPSLog) arrLog.get(i);
@@ -169,7 +169,7 @@ public class AIMLocationManager implements LocationListener, IWebAPINotification
                 gps.setLat(currentLocation.getLatitude());
                 gps.setLon(currentLocation.getLongitude());
                 gps.setTag(currentLocation.getProvider() == null ? "" : currentLocation.getProvider());
-                gps.updatedate = new BaseDateTime();
+                gps.updatedate = new AIMDateTime();
                 AIMObjectFactory.insert(AIMGPSLog.class).asNewItem(gps);
             }
         }

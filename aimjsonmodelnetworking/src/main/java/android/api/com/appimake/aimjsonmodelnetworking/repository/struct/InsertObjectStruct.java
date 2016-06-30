@@ -1,7 +1,7 @@
 package android.api.com.appimake.aimjsonmodelnetworking.repository.struct;
 
 
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseModel;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMModel;
 import android.api.com.appimake.aimjsonmodelnetworking.repository.db.Table;
 import android.api.com.appimake.aimjsonmodelnetworking.repository.intf.IObjectRepository;
 
@@ -17,7 +17,7 @@ public class InsertObjectStruct {
         this.repository = repository;
     }
 
-    public long asNewItem(BaseModel target) {
+    public long asNewItem(AIMModel target) {
         return repository.executeInsert(target, Table.Builder(classStruct));
     }
 

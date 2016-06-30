@@ -19,41 +19,41 @@ import java.util.Map;
 /**
  * Created by ponlavitlarpeampaisarl on 2/3/15 AD.
  */
-public class BaseArrayList<T> extends ArrayList implements IJSONEnable, IRestServiceObjectDelegate {
+public class AIMArrayList<T> extends ArrayList implements IJSONEnable, IRestServiceObjectDelegate {
     private Class<T> genericType;
     private boolean isListFetching;
-    private BaseDateTime updatedate;
+    private AIMDateTime updatedate;
     private String target;
 
-    public BaseArrayList() {
+    public AIMArrayList() {
         throw new UnsupportedOperationException();
     }
 
     /**
      * Constructor is not available please use the builder class instead
      */
-    protected BaseArrayList(Class<T> c) {
+    protected AIMArrayList(Class<T> c) {
         this.genericType = c;
     }
 
     /**
      * Object builder method
      *
-     * @return New BaseArrayList object with BaseModel generic type.
+     * @return New AIMArrayList object with AIMModel generic type.
      */
-    public static BaseArrayList Builder(Class asClass) {
-        return new BaseArrayList(asClass);
+    public static AIMArrayList Builder(Class asClass) {
+        return new AIMArrayList(asClass);
     }
 
     @Override
     public void updateTimeStamp() {
-        this.updatedate = new BaseDateTime();
+        this.updatedate = new AIMDateTime();
     }
 
     @Override
-    public BaseDateTime getUpdateDate() {
+    public AIMDateTime getUpdateDate() {
         if (this.updatedate == null)
-            this.updatedate = new BaseDateTime(0);
+            this.updatedate = new AIMDateTime(0);
         return this.updatedate;
     }
 
@@ -61,7 +61,7 @@ public class BaseArrayList<T> extends ArrayList implements IJSONEnable, IRestSer
         return this.isListFetching;
     }
 
-    public BaseArrayList<?> self() {
+    public AIMArrayList<?> self() {
         return this;
     }
 
@@ -84,8 +84,8 @@ public class BaseArrayList<T> extends ArrayList implements IJSONEnable, IRestSer
         JSONArray ary = new JSONArray();
         for (int i = 0; i < size(); i++) {
             Object objItem = get(i);
-            if (objItem instanceof BaseModel) {
-                BaseModel item = (BaseModel) objItem;
+            if (objItem instanceof AIMModel) {
+                AIMModel item = (AIMModel) objItem;
                 ary.put(item.toJSONObject(forLocal));
             } else
                 throw new UnsupportedClassException();
@@ -125,7 +125,7 @@ public class BaseArrayList<T> extends ArrayList implements IJSONEnable, IRestSer
                     for (int i = 0; i < this.size(); i++) {
 
                         boolean isNotHaveFromServer = true;
-                        long IDFromLocalObject = ((BaseModel) this.get(i)).unique_id;
+                        long IDFromLocalObject = ((AIMModel) this.get(i)).unique_id;
 
                         for (int j = 0; j < list.size(); j++) {
 
@@ -152,7 +152,7 @@ public class BaseArrayList<T> extends ArrayList implements IJSONEnable, IRestSer
             Object item = list.get(i);
             if (UpdatePolicy.ForceUpdate == policy || UpdatePolicy.UseFromCacheIfAvailable == policy) {
                 try {
-                    BaseModel base = (BaseModel) getGenericType().newInstance();
+                    AIMModel base = (AIMModel) getGenericType().newInstance();
                     if (item instanceof Map) {
                         base.updateFromInfo((Map<String, Object>) item, policy);
                         if (base.active_flag)
@@ -167,7 +167,7 @@ public class BaseArrayList<T> extends ArrayList implements IJSONEnable, IRestSer
                 }
             } else if (UpdatePolicy.MergeToNewest == policy)
                 try {
-                    BaseModel base = (BaseModel) getGenericType().newInstance();
+                    AIMModel base = (AIMModel) getGenericType().newInstance();
                     if (item instanceof Map) {
                         // loop all old data
                         boolean isHave = false;
@@ -176,12 +176,12 @@ public class BaseArrayList<T> extends ArrayList implements IJSONEnable, IRestSer
                             // Check if 'id' in this index(old data) is equal to fetching list(new data)
                             // if true, Check timestamp
                             if (((HashMap) list.get(i)).get("unique_id") != null) {
-                                if (Long.parseLong(((HashMap) list.get(i)).get("unique_id").toString().trim()) == ((BaseModel) this.get(thisCount)).unique_id) {
+                                if (Long.parseLong(((HashMap) list.get(i)).get("unique_id").toString().trim()) == ((AIMModel) this.get(thisCount)).unique_id) {
                                     // Check if timestamp in list of fetching is updated(new)
                                     // if true, Update data
                                     // if false, do nothing
 
-                                    String myTime = (((BaseModel) this.get(thisCount)).updatedate.getTime() + "");
+                                    String myTime = (((AIMModel) this.get(thisCount)).updatedate.getTime() + "");
                                     String updateTime = ((HashMap) list.get(i)).get("updatedate").toString().trim().replace(".", "");
 
                                     if (!(myTime.length() < 10 || updateTime.length() < 10)) {
@@ -191,7 +191,7 @@ public class BaseArrayList<T> extends ArrayList implements IJSONEnable, IRestSer
 
                                         if (nowTime < compareTime) {
                                             base.updateFromInfo((Map<String, Object>) item, UpdatePolicy.ForceUpdate);
-                                            if (((BaseModel) this.get(thisCount)).active_flag) {
+                                            if (((AIMModel) this.get(thisCount)).active_flag) {
                                                 set(thisCount, base);
                                             } else {
                                                 tmpMergeToNewest.add(this.get(thisCount));
@@ -217,7 +217,7 @@ public class BaseArrayList<T> extends ArrayList implements IJSONEnable, IRestSer
                 }
             else if (UpdatePolicy.UseNewest == policy) {
                 try {
-                    BaseModel base = (BaseModel) getGenericType().newInstance();
+                    AIMModel base = (AIMModel) getGenericType().newInstance();
                     if (item instanceof Map) {
                         // loop all old data
                         boolean isHave = false;
@@ -227,11 +227,11 @@ public class BaseArrayList<T> extends ArrayList implements IJSONEnable, IRestSer
                             // Check if 'id' in this index(old data) is equal to fetching list(new data)
                             // if true, Check timestamp
                             if (((HashMap) list.get(i)).get("unique_id") != null) {
-                                if (Long.parseLong(((HashMap) list.get(i)).get("unique_id").toString().trim()) == ((BaseModel) this.get(thisCount)).unique_id) {
+                                if (Long.parseLong(((HashMap) list.get(i)).get("unique_id").toString().trim()) == ((AIMModel) this.get(thisCount)).unique_id) {
                                     // Check if timestamp in list of fetching is updated(new)
                                     // if true, Update data
                                     // if false, do nothing
-                                    String localObjectTime = (((BaseModel) this.get(thisCount)).updatedate.getTime() + "");
+                                    String localObjectTime = (((AIMModel) this.get(thisCount)).updatedate.getTime() + "");
                                     String serverObjectTime = ((HashMap) list.get(i)).get("updatedate").toString().trim().replace(".", "");
 
                                     if (!(localObjectTime.length() < 10 || serverObjectTime.length() < 10)) {
@@ -241,7 +241,7 @@ public class BaseArrayList<T> extends ArrayList implements IJSONEnable, IRestSer
 
                                         if (nowTime < compareTime) {
                                             base.updateFromInfo((Map<String, Object>) item, UpdatePolicy.ForceUpdate);
-                                            if (((BaseModel) this.get(thisCount)).active_flag) {
+                                            if (((AIMModel) this.get(thisCount)).active_flag) {
                                                 set(thisCount, base);
                                             } else {
                                                 tmpUseNewest.add(this.get(thisCount));

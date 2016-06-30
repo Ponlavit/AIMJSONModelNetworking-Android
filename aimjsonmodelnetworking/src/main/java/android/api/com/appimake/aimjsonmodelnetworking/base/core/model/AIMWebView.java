@@ -9,25 +9,25 @@ import android.webkit.WebView;
 /**
  * Created by nattapongr on 5/21/15.
  */
-public class BaseWebView extends WebView {
+public class AIMWebView extends WebView {
     private ProgressDialog dialogLoading;
     private Context context;
 
 
-    public BaseWebView(Context context) {
+    public AIMWebView(Context context) {
         super(context);
         this.context = context;
     }
 
-    public BaseWebView(Context context, AttributeSet attrs) {
+    public AIMWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public BaseWebView(Context context, AttributeSet attrs, int defStyle) {
+    public AIMWebView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
-    public BaseWebView(Context context, AttributeSet attrs, int defStyleAttr, boolean privateBrowsing) {
+    public AIMWebView(Context context, AttributeSet attrs, int defStyleAttr, boolean privateBrowsing) {
         super(context, attrs, defStyleAttr, privateBrowsing);
     }
 

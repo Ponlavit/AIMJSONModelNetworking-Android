@@ -1,12 +1,12 @@
 package android.api.com.appimake.aimjsonmodelnetworking.webapi.models;
 
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.JSONVariable;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseModel;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMModel;
 
 /**
  * Created by nattapongr on 5/13/15.
  */
-public class Search extends BaseModel {
+public class Search extends AIMModel {
 
     @JSONVariable
     private String keyword;

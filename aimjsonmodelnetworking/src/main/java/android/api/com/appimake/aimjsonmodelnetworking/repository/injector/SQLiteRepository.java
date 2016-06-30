@@ -3,9 +3,9 @@ package android.api.com.appimake.aimjsonmodelnetworking.repository.injector;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.ColumnType;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.exception.NotYetImplementedException;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.exception.UnsupportedClassException;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseArrayList;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseDateTime;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseModel;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMArrayList;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMDateTime;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMModel;
 import android.api.com.appimake.aimjsonmodelnetworking.repository.AIMObjectFactory;
 import android.api.com.appimake.aimjsonmodelnetworking.repository.db.Column;
 import android.api.com.appimake.aimjsonmodelnetworking.repository.db.Table;
@@ -105,7 +105,7 @@ public class SQLiteRepository extends SQLiteOpenHelper implements IObjectReposit
      * @return the id of the object (_id field), return -1 if failed
      */
     @Override
-    public synchronized long executeInsert(BaseModel object, Table tableToInsert) {
+    public synchronized long executeInsert(AIMModel object, Table tableToInsert) {
         // Check for reference object
         for (Column column : tableToInsert.columns) {
             if (column.isReferenceObject) {
@@ -113,7 +113,7 @@ public class SQLiteRepository extends SQLiteOpenHelper implements IObjectReposit
                     Field field = getField(object.getClass(), column.mappingName);
                     if (field == null) continue;
                     field.setAccessible(true);
-                    BaseModel baseModel = (BaseModel) field.get(object);
+                    AIMModel baseModel = (AIMModel) field.get(object);
                     boolean needInsertAsNew = false;
                     // id is not -1 mean not new item
                     if (baseModel._id != -1) {
@@ -143,7 +143,7 @@ public class SQLiteRepository extends SQLiteOpenHelper implements IObjectReposit
         return object._id;
     }
 
-    public synchronized ContentValues contentValueForObject(BaseModel object, Table tableToInsert) {
+    public synchronized ContentValues contentValueForObject(AIMModel object, Table tableToInsert) {
         ContentValues contentValues = new ContentValues();
         for (Column col : tableToInsert.columns) {
             if (col.isPrimaryKey) continue;
@@ -158,11 +158,11 @@ public class SQLiteRepository extends SQLiteOpenHelper implements IObjectReposit
                     contentValues.put(col.name, ((Boolean) value).booleanValue() ? 1 : 0);
                 else if (aField.getType().isPrimitive() || String.class.isAssignableFrom(value.getClass()))
                     contentValues.put(col.name, value.toString().trim());
-                else if (BaseDateTime.class.isAssignableFrom(value.getClass()))
-                    contentValues.put(col.name, ((BaseDateTime) value)
+                else if (AIMDateTime.class.isAssignableFrom(value.getClass()))
+                    contentValues.put(col.name, ((AIMDateTime) value)
                             .toUnixTimeString());
-                else if (BaseModel.class.isAssignableFrom(value.getClass()))
-                    contentValues.put(col.name, ((BaseModel) value)._id);
+                else if (AIMModel.class.isAssignableFrom(value.getClass()))
+                    contentValues.put(col.name, ((AIMModel) value)._id);
                 else throw new UnsupportedClassException();
 
             } catch (IllegalAccessException e) {
@@ -181,7 +181,7 @@ public class SQLiteRepository extends SQLiteOpenHelper implements IObjectReposit
      * @return success or not
      */
     @Override
-    public synchronized boolean executeUpdate(BaseModel object, Table tableToInsert) {
+    public synchronized boolean executeUpdate(AIMModel object, Table tableToInsert) {
         openDatabase();
         ContentValues contentValues = contentValueForObject(object, tableToInsert);
         if (contentValues == null) return false;
@@ -199,7 +199,7 @@ public class SQLiteRepository extends SQLiteOpenHelper implements IObjectReposit
      * @return success or not
      */
     @Override
-    public synchronized boolean executeDelete(BaseModel object, Table tableToDelete) {
+    public synchronized boolean executeDelete(AIMModel object, Table tableToDelete) {
 
         String whereClause = "_id = ?";
         String[] whereArgs = new String[]{String.valueOf(object.getObjectId())};
@@ -229,10 +229,10 @@ public class SQLiteRepository extends SQLiteOpenHelper implements IObjectReposit
      * @return the list of object of specific class
      */
     @Override
-    public synchronized BaseArrayList<BaseModel> executeSelect(Class classStruct, Table tableToSelect) {
+    public synchronized AIMArrayList<AIMModel> executeSelect(Class classStruct, Table tableToSelect) {
         openReadOnlyDatabase();
         Cursor cursor = this.database.rawQuery("SELECT * FROM " + tableToSelect.tableName, null);
-        BaseArrayList<BaseModel> list = prepareListFromSelection(classStruct, tableToSelect, cursor);
+        AIMArrayList<AIMModel> list = prepareListFromSelection(classStruct, tableToSelect, cursor);
         closeDatabase();
         return list;
     }
@@ -246,11 +246,11 @@ public class SQLiteRepository extends SQLiteOpenHelper implements IObjectReposit
      * @return the list of object of specific class
      */
 
-    public synchronized BaseArrayList<BaseModel> executeSelect(Class classStruct, Table tableToSelect, String columnToSelect) {
+    public synchronized AIMArrayList<AIMModel> executeSelect(Class classStruct, Table tableToSelect, String columnToSelect) {
         openReadOnlyDatabase();
         this.forceToString = true;
         Cursor cursor = this.database.rawQuery("SELECT " + columnToSelect + " FROM " + tableToSelect.tableName, null);
-        BaseArrayList<BaseModel> list = prepareListFromSelection(classStruct, tableToSelect, cursor);
+        AIMArrayList<AIMModel> list = prepareListFromSelection(classStruct, tableToSelect, cursor);
         closeDatabase();
         this.forceToString = false;
         return list;
@@ -270,8 +270,8 @@ public class SQLiteRepository extends SQLiteOpenHelper implements IObjectReposit
         return null;
     }
 
-    private synchronized BaseArrayList<BaseModel> prepareListFromSelection(Class classStruct, Table tableToSelect, Cursor cursor) {
-        BaseArrayList<BaseModel> list = BaseArrayList.Builder(classStruct);
+    private synchronized AIMArrayList<AIMModel> prepareListFromSelection(Class classStruct, Table tableToSelect, Cursor cursor) {
+        AIMArrayList<AIMModel> list = AIMArrayList.Builder(classStruct);
 
         if (this.database.isOpen()) {
             if (cursor == null) return list;
@@ -279,9 +279,9 @@ public class SQLiteRepository extends SQLiteOpenHelper implements IObjectReposit
             if (cursor.getCount() == 0) return list;
             cursor.moveToFirst();
             do {
-                BaseModel obj = null;
+                AIMModel obj = null;
                 try {
-                    Constructor<BaseModel> ct = classStruct.getConstructor();
+                    Constructor<AIMModel> ct = classStruct.getConstructor();
                     obj = ct.newInstance();
                     for (Column col : tableToSelect.columns) {
                         Field field = getField(classStruct, col.mappingName);
@@ -296,9 +296,9 @@ public class SQLiteRepository extends SQLiteOpenHelper implements IObjectReposit
                                     field.set(obj, forceToString ? cursor.getInt(colIndex) + "" : cursor.getInt(colIndex));
                                 } else if (fieldType.equals(Boolean.TYPE)) {
                                     field.set(obj, forceToString ? cursor.getInt(colIndex) + "" : cursor.getInt(colIndex) == 1);
-                                } else if (BaseModel.class.isAssignableFrom(field.getType())) {
+                                } else if (AIMModel.class.isAssignableFrom(field.getType())) {
                                     long refId = cursor.getLong(colIndex);
-                                    BaseModel item = AIMObjectFactory.select(field.getType()).getById(refId);
+                                    AIMModel item = AIMObjectFactory.select(field.getType()).getById(refId);
                                     field.set(obj, forceToString ? item + "" : item);
                                 }
                                 break;
@@ -307,11 +307,11 @@ public class SQLiteRepository extends SQLiteOpenHelper implements IObjectReposit
                                 field.set(obj, forceToString ? cursor.getDouble(colIndex) + "" : cursor.getDouble(colIndex));
                                 break;
                             case Cursor.FIELD_TYPE_STRING:
-                                // BaseDateTime and String
+                                // AIMDateTime and String
                                 if (fieldType.equals(String.class)) {
                                     field.set(obj, forceToString ? cursor.getString(colIndex) + "" : cursor.getString(colIndex));
-                                } else if (fieldType.equals(BaseDateTime.class)) {
-                                    field.set(obj, forceToString ? (new BaseDateTime(cursor.getString(colIndex))).getTime() + "" : new BaseDateTime(cursor.getString(colIndex)));
+                                } else if (fieldType.equals(AIMDateTime.class)) {
+                                    field.set(obj, forceToString ? (new AIMDateTime(cursor.getString(colIndex))).getTime() + "" : new AIMDateTime(cursor.getString(colIndex)));
                                 }
                                 break;
                             case Cursor.FIELD_TYPE_BLOB:
@@ -347,12 +347,12 @@ public class SQLiteRepository extends SQLiteOpenHelper implements IObjectReposit
      * @return the object of specific id, null if not found
      */
     @Override
-    public synchronized BaseModel executeSelect(Class classStruct, Table tableToSelect, long id) {
+    public synchronized AIMModel executeSelect(Class classStruct, Table tableToSelect, long id) {
         if (!this.database.isOpen())
             openReadOnlyDatabase();
 
         Cursor cursor = this.database.rawQuery("SELECT * FROM " + tableToSelect.tableName + " WHERE _id=" + id, null);
-        ArrayList<BaseModel> list = prepareListFromSelection(classStruct, tableToSelect, cursor);
+        ArrayList<AIMModel> list = prepareListFromSelection(classStruct, tableToSelect, cursor);
 
         if (this.database.isOpen())
             closeDatabase();
@@ -370,10 +370,10 @@ public class SQLiteRepository extends SQLiteOpenHelper implements IObjectReposit
      * @return the list of object of specific parameter
      */
     @Override
-    public synchronized BaseArrayList<BaseModel> executeSelect(Class classStruct, Table tableToSelect, int offset, int limit) {
+    public synchronized AIMArrayList<AIMModel> executeSelect(Class classStruct, Table tableToSelect, int offset, int limit) {
         openReadOnlyDatabase();
         Cursor cursor = this.database.rawQuery("SELECT * FROM " + tableToSelect.tableName + " LIMIT " + limit + " OFFSET " + offset, null);
-        BaseArrayList<BaseModel> list = prepareListFromSelection(classStruct, tableToSelect, cursor);
+        AIMArrayList<AIMModel> list = prepareListFromSelection(classStruct, tableToSelect, cursor);
         closeDatabase();
 
         if (this.database.isOpen())

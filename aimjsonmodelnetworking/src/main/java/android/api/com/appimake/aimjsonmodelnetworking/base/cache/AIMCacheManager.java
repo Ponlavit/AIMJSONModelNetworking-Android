@@ -1,6 +1,6 @@
 package android.api.com.appimake.aimjsonmodelnetworking.base.cache;
 
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseDateTime;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMDateTime;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -45,14 +45,14 @@ public class AIMCacheManager {
         return isInitial;
     }
 
-    public synchronized BaseDateTime getBeginDateForKey(String key) {
+    public synchronized AIMDateTime getBeginDateForKey(String key) {
         sp = mContext.getSharedPreferences("KEY" + key.hashCode(), Context.MODE_MULTI_PROCESS);
-        return new BaseDateTime(sp.getLong(BEGINDATE, 0) / 1000);
+        return new AIMDateTime(sp.getLong(BEGINDATE, 0) / 1000);
     }
 
-    public synchronized BaseDateTime getExpireDateForKey(String key) {
+    public synchronized AIMDateTime getExpireDateForKey(String key) {
         sp = mContext.getSharedPreferences("KEY" + key.hashCode(), Context.MODE_MULTI_PROCESS);
-        return new BaseDateTime(sp.getLong(EXPIREDATE, 0) / 1000);
+        return new AIMDateTime(sp.getLong(EXPIREDATE, 0) / 1000);
     }
 
     public synchronized long getDateLeftForKey(String key) {

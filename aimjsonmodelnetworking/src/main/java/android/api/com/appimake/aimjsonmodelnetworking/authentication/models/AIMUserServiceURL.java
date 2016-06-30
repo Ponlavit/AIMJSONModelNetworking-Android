@@ -1,12 +1,12 @@
 package android.api.com.appimake.aimjsonmodelnetworking.authentication.models;
 
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.JSONVariable;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseModel;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMModel;
 
 /**
  * Created by nattapongr on 8/5/15 AD.
  */
-public class AIMUserServiceURL extends BaseModel {
+public class AIMUserServiceURL extends AIMModel {
 
     @JSONVariable
     private int service_id;

@@ -6,14 +6,14 @@ import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.JSON
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.NullableType;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.Restriction;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.RestrictionType;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseDateTime;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseModel;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMDateTime;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMModel;
 
 /**
  * Created by ponlavitlarpeampaisarl on 3/30/15 AD.
  */
 @IQueryObject(name = "webapi_transaction_response")
-public class TransactionResponse extends BaseModel {
+public class TransactionResponse extends AIMModel {
 
     @JSONVariable
     @IQueryObject(
@@ -43,7 +43,7 @@ public class TransactionResponse extends BaseModel {
             name = "added_date",
             type = ColumnType.TEXT
     )
-    private BaseDateTime addedDate;
+    private AIMDateTime addedDate;
 
     public Transaction getRef_transaction() {
         return ref_transaction;
@@ -69,11 +69,11 @@ public class TransactionResponse extends BaseModel {
         this.code = code;
     }
 
-    public BaseDateTime getAddedDate() {
+    public AIMDateTime getAddedDate() {
         return addedDate;
     }
 
-    public void setAddedDate(BaseDateTime addedDate) {
+    public void setAddedDate(AIMDateTime addedDate) {
         this.addedDate = addedDate;
     }
 

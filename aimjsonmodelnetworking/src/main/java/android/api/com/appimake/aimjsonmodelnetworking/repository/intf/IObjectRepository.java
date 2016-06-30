@@ -1,8 +1,8 @@
 package android.api.com.appimake.aimjsonmodelnetworking.repository.intf;
 
 
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseArrayList;
-import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.BaseModel;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMArrayList;
+import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMModel;
 import android.api.com.appimake.aimjsonmodelnetworking.repository.db.Table;
 
 /**
@@ -33,7 +33,7 @@ public interface IObjectRepository {
      * @param tableToInsert the target table
      * @return the id of the object (_id field)
      */
-    public long executeInsert(BaseModel object, Table tableToInsert);
+    public long executeInsert(AIMModel object, Table tableToInsert);
 
     /**
      * Make update object to database
@@ -42,7 +42,7 @@ public interface IObjectRepository {
      * @param tableToInsert the target table
      * @return success or not
      */
-    public boolean executeUpdate(BaseModel object, Table tableToInsert);
+    public boolean executeUpdate(AIMModel object, Table tableToInsert);
 
     /**
      * Make delete object to database
@@ -51,7 +51,7 @@ public interface IObjectRepository {
      * @param tableToDelete the target table
      * @return success or not
      */
-    public boolean executeDelete(BaseModel object, Table tableToDelete);
+    public boolean executeDelete(AIMModel object, Table tableToDelete);
 
     public boolean executeDeleteTable(Table tableToDelete);
 
@@ -63,7 +63,7 @@ public interface IObjectRepository {
      * @param tableToSelect the table structure for the class
      * @return the list of object of specific class
      */
-    public BaseArrayList<BaseModel> executeSelect(Class classStruct, Table tableToSelect);
+    public AIMArrayList<AIMModel> executeSelect(Class classStruct, Table tableToSelect);
 
     /**
      * Make select from specific table
@@ -73,7 +73,7 @@ public interface IObjectRepository {
      * @param columnToSelect the column to select
      * @return the list of object of specific class
      */
-    public BaseArrayList<BaseModel> executeSelect(Class classStruct, Table tableToSelect, String columnToSelect);
+    public AIMArrayList<AIMModel> executeSelect(Class classStruct, Table tableToSelect, String columnToSelect);
 
     /**
      * Make select from specific table and id
@@ -83,7 +83,7 @@ public interface IObjectRepository {
      * @param id            the object id (_id)
      * @return the object of specific id, null if not found
      */
-    public BaseModel executeSelect(Class classStruct, Table tableToSelect, long id);
+    public AIMModel executeSelect(Class classStruct, Table tableToSelect, long id);
 
     /**
      * Make select from specific table for limited and offset
@@ -94,7 +94,7 @@ public interface IObjectRepository {
      * @param limit         the limit (count maximum row)
      * @return the list of object of specific parameter
      */
-    public BaseArrayList<BaseModel> executeSelect(Class classStruct, Table tableToSelect, int offset, int limit);
+    public AIMArrayList<AIMModel> executeSelect(Class classStruct, Table tableToSelect, int offset, int limit);
 
     /**
      * Get the table for the class that have registered
