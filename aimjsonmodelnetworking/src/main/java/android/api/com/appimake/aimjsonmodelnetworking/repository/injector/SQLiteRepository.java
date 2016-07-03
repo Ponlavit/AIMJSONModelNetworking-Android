@@ -432,7 +432,7 @@ public class SQLiteRepository extends SQLiteOpenHelper implements IObjectReposit
      * Called when the database needs to be upgraded. The implementation
      * should use this method to drop tables, search tables, or do anything else it
      * needs to upgrade to the new schema version.
-     * <p/>
+     *
      * <p>
      * The SQLite ALTER TABLE documentation can be found
      * <a href="http://sqlite.org/lang_altertable.html">here</a>. If you search new columns

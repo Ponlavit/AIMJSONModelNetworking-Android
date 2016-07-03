@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AIMCore.iml" filepath="$PROJECT_DIR$/AIMCore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AIMJSONModelNetworking-Android.iml" filepath="$PROJECT_DIR$/AIMJSONModelNetworking-Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/aimjsonmodelnetworking/aimjsonmodelnetworking.iml" filepath="$PROJECT_DIR$/aimjsonmodelnetworking/aimjsonmodelnetworking.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

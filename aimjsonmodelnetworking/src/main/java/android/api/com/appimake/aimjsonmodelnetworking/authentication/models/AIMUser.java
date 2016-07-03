@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class AIMUser extends AIMModel {
 
     @JSONVariable
-    private long u_id;
+    private String u_id;
     @JSONVariable
     private String token;
     @JSONVariable
@@ -63,11 +63,11 @@ public class AIMUser extends AIMModel {
         this.profilePhoto = profilePhoto;
     }
 
-    public long getU_id() {
+    public String getU_id() {
         return u_id;
     }
 
-    public void setU_id(long u_id) {
+    public void setU_id(String u_id) {
         this.u_id = u_id;
     }
 

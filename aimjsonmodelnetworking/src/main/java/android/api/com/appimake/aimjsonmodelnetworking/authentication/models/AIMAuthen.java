@@ -39,6 +39,7 @@ public class AIMAuthen extends AIMModel {
      * 1. login
      * 2. register
      * 3. chpass
+     * 4. login_restricted
      */
     @JSONVariable
     private String action;

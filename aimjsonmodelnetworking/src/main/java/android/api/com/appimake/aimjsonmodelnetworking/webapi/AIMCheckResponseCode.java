@@ -65,10 +65,13 @@ public class AIMCheckResponseCode {
                         switch (stat) {
                             case "104":
                                 callback.webAPISuccess(stat, "Approved", responseString + "", Class);
+                                break;
                             case "401":
                                 callback.webAPISuccess(stat, TEXT_AUTHEN_ERROR, responseString + "", Class);
+                                break;
                             default:
                                 callback.webAPISuccess(stat, jsonData.get("message") + "", responseString + "", Class);
+                                break;
                         }
                     } else {
                         callback.webAPISuccess("200", "", "", Class);

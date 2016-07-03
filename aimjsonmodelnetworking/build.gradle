@@ -1,5 +1,29 @@
 apply plugin: 'com.android.library'
 
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'aimjsonmodelnetworking'
+
+    publishedGroupId = 'android.api.com.appimake'
+    libraryName = 'aimjsonmodelnetworking'
+    artifact = 'aimjsonmodelnetworking'
+
+    libraryDescription = 'AIM Core on Android'
+
+    siteUrl = 'https://github.com/Ponlavit/AIMJSONModelNetworking-Android'
+    gitUrl = 'https://github.com/Ponlavit/AIMJSONModelNetworking-Android.git'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'appimake'
+    developerName = 'appimake'
+    developerEmail = 'appimake@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.0"
@@ -25,3 +49,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.codesnippets4all:quick-json:1.0.4'
 }
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
