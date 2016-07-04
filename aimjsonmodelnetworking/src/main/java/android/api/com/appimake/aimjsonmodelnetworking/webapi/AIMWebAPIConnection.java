@@ -1,6 +1,6 @@
 package android.api.com.appimake.aimjsonmodelnetworking.webapi;
 
-import android.api.com.appimake.aimjsonmodelnetworking.base.AIMConfig;
+import android.api.com.appimake.aimjsonmodelnetworking.AIMConfig;
 import android.support.annotation.Nullable;
 import android.util.Log;
 

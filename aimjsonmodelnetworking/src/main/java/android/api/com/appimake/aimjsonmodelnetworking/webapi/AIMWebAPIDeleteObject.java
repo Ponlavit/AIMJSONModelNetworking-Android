@@ -1,6 +1,6 @@
 package android.api.com.appimake.aimjsonmodelnetworking.webapi;
 
-import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.IWebAPINotification;
+import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.AIMIWebAPINotification;
 import android.api.com.appimake.aimjsonmodelnetworking.webapi.models.Delete;
 import android.net.Uri;
 
@@ -23,7 +23,7 @@ public class AIMWebAPIDeleteObject {
         return ourInstance;
     }
 
-    public synchronized void delete(String url, String id, String target, String module, String token, final IWebAPINotification callback, final Class Class) {
+    public synchronized void delete(String url, String id, String target, String module, String token, final AIMIWebAPINotification callback, final Class Class) {
         this.url = url;
         upload = new Delete();
         upload.setObjectStringId(id);
@@ -42,7 +42,7 @@ public class AIMWebAPIDeleteObject {
         }).start();
     }
 
-    private void postUpload(final IWebAPINotification callback, Class Class) {
+    private void postUpload(final AIMIWebAPINotification callback, Class Class) {
 
         int responseCode = 0;
         String responseString = "";

@@ -1,6 +1,6 @@
 package android.api.com.appimake.aimjsonmodelnetworking.base.core.model;
 
-import android.api.com.appimake.aimjsonmodelnetworking.base.AIMConfig;
+import android.api.com.appimake.aimjsonmodelnetworking.AIMConfig;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.enumulation.UpdatePolicy;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.exception.UnsupportedClassException;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.intf.IJSONEnable;

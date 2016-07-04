@@ -1,8 +1,8 @@
 package android.api.com.appimake.aimjsonmodelnetworking.webapi;
 
-import android.api.com.appimake.aimjsonmodelnetworking.base.AIMConfig;
+import android.api.com.appimake.aimjsonmodelnetworking.AIMConfig;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMDateTime;
-import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.IWebAPINotification;
+import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.AIMIWebAPINotification;
 import android.api.com.appimake.aimjsonmodelnetworking.webapi.models.Search;
 import android.net.Uri;
 import android.util.Log;
@@ -25,11 +25,11 @@ public class AIMWebAPISearchObject {
         return ourInstance;
     }
 
-    public void search(final String url, AIMDateTime lastUpdate, String keyword, String target, String module, int limit, int offset, String token, final IWebAPINotification callback, final Class Class) {
+    public void search(final String url, AIMDateTime lastUpdate, String keyword, String target, String module, int limit, int offset, String token, final AIMIWebAPINotification callback, final Class Class) {
         search(url, lastUpdate, keyword, target, module, limit, offset, token, callback, Class, 10);
     }
 
-    public void search(final String url, AIMDateTime lastUpdate, String keyword, final String target, final String module, int limit, int offset, String token, final IWebAPINotification callback, final Class Class, final long numberOfDayCache) {
+    public void search(final String url, AIMDateTime lastUpdate, String keyword, final String target, final String module, int limit, int offset, String token, final AIMIWebAPINotification callback, final Class Class, final long numberOfDayCache) {
         final Search upload = new Search();
         upload.updatedate = lastUpdate;
         upload.setKeyword(keyword);
@@ -54,7 +54,7 @@ public class AIMWebAPISearchObject {
         }).start();
     }
 
-    private synchronized void postUpload(final IWebAPINotification callback, Class Class, String url, Search upload, long numberOfDayCache) {
+    private synchronized void postUpload(final AIMIWebAPINotification callback, Class Class, String url, Search upload, long numberOfDayCache) {
 
         int responseCode = 0;
         String responseString = "";

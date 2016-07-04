@@ -2,7 +2,7 @@ package android.api.com.appimake.aimjsonmodelnetworking.webapi;
 
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.converter.UnicodeConverter;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMDateTime;
-import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.IWebAPINotification;
+import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.AIMIWebAPINotification;
 import android.api.com.appimake.aimjsonmodelnetworking.webapi.models.Add;
 import android.net.Uri;
 
@@ -25,7 +25,7 @@ public class AIMWebAPIAddObject {
         return ourInstance;
     }
 
-    public synchronized void add(String url, String json, String target, String module, String token, final IWebAPINotification callback, final Class Class) {
+    public synchronized void add(String url, String json, String target, String module, String token, final AIMIWebAPINotification callback, final Class Class) {
         this.url = url;
         json = UnicodeConverter.unicodeEscapedString(json);
         upload = new Add();
@@ -46,7 +46,7 @@ public class AIMWebAPIAddObject {
         }).start();
     }
 
-    private void postUpload(final IWebAPINotification callback, Class Class) {
+    private void postUpload(final AIMIWebAPINotification callback, Class Class) {
 
         int responseCode = 0;
         String responseString = "";

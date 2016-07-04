@@ -1,6 +1,6 @@
 package android.api.com.appimake.aimjsonmodelnetworking.webapi;
 
-import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.IWebAPINotification;
+import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.AIMIWebAPINotification;
 import android.api.com.appimake.aimjsonmodelnetworking.webapi.models.Update;
 import android.net.Uri;
 
@@ -23,7 +23,7 @@ public class AIMWebAPIUpdateObject {
         return ourInstance;
     }
 
-    public synchronized void update(String url, String id, String data, String target, String module, String token, final IWebAPINotification callback, final Class Class) {
+    public synchronized void update(String url, String id, String data, String target, String module, String token, final AIMIWebAPINotification callback, final Class Class) {
         this.url = url;
         upload = new Update();
         upload.setObjectStringId(id);
@@ -43,7 +43,7 @@ public class AIMWebAPIUpdateObject {
         }).start();
     }
 
-    private void postUpload(final IWebAPINotification callback, Class Class) {
+    private void postUpload(final AIMIWebAPINotification callback, Class Class) {
 
         int responseCode = 0;
         String responseString = "";

@@ -1,4 +1,4 @@
-package android.api.com.appimake.aimjsonmodelnetworking.base;
+package android.api.com.appimake.aimjsonmodelnetworking;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

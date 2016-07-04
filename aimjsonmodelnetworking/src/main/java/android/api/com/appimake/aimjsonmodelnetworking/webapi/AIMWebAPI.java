@@ -5,7 +5,7 @@ import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMArrayL
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMDateTime;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMModel;
 import android.api.com.appimake.aimjsonmodelnetworking.repository.AIMObjectFactory;
-import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.IWebAPINotification;
+import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.AIMIWebAPINotification;
 import android.api.com.appimake.aimjsonmodelnetworking.webapi.models.Add;
 import android.api.com.appimake.aimjsonmodelnetworking.webapi.models.Transaction;
 import android.api.com.appimake.aimjsonmodelnetworking.webapi.models.TransactionResponse;
@@ -73,7 +73,7 @@ public class AIMWebAPI {
         }
     }
 
-    public synchronized void forceUpload(Transaction transaction, IWebAPINotification callback) {
+    public synchronized void forceUpload(Transaction transaction, AIMIWebAPINotification callback) {
 
         if (preUpload(transaction)) {
             callback.webAPISuccess("", "Force send done", "", callback.getClass());

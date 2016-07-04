@@ -1,8 +1,8 @@
 package android.api.com.appimake.aimjsonmodelnetworking.webapi;
 
+import android.api.com.appimake.aimjsonmodelnetworking.AIMConfig;
 import android.api.com.appimake.aimjsonmodelnetworking.authentication.AIMCurrentUser;
-import android.api.com.appimake.aimjsonmodelnetworking.base.AIMConfig;
-import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.IWebAPINotification;
+import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.AIMIWebAPINotification;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -28,7 +28,7 @@ public class AIMWebAPIUploadFileWizParameter {
         return ourInstance;
     }
 
-    public synchronized void uploadImageToServices(final Class Class, final IWebAPINotification callback, final String urlUpload, final String key, final String name, final String type, final File fileInput) {
+    public synchronized void uploadImageToServices(final Class Class, final AIMIWebAPINotification callback, final String urlUpload, final String key, final String name, final String type, final File fileInput) {
 
         new Thread(new Runnable() {
             @Override

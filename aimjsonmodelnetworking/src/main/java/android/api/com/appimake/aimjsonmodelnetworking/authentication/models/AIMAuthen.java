@@ -1,7 +1,7 @@
 package android.api.com.appimake.aimjsonmodelnetworking.authentication.models;
 
 
-import android.api.com.appimake.aimjsonmodelnetworking.base.AIMConfig;
+import android.api.com.appimake.aimjsonmodelnetworking.AIMConfig;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.JSONVariable;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMModel;
 

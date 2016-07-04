@@ -1,6 +1,6 @@
 package android.api.com.appimake.aimjsonmodelnetworking.base.core.model;
 
-import android.api.com.appimake.aimjsonmodelnetworking.base.AIMConfig;
+import android.api.com.appimake.aimjsonmodelnetworking.AIMConfig;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.ColumnType;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.IQueryObject;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.annotation.JSONVariable;

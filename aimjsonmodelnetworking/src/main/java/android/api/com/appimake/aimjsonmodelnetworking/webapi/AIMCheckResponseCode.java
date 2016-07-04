@@ -1,6 +1,6 @@
 package android.api.com.appimake.aimjsonmodelnetworking.webapi;
 
-import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.IWebAPINotification;
+import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.AIMIWebAPINotification;
 
 import com.codesnippets4all.json.parsers.JSONParser;
 import com.codesnippets4all.json.parsers.JsonParserFactory;
@@ -45,7 +45,7 @@ public class AIMCheckResponseCode {
         }
     }
 
-    public void checkStatusAndCallBack(IWebAPINotification callback, int statusCode, String responseString, Class Class) {
+    public void checkStatusAndCallBack(AIMIWebAPINotification callback, int statusCode, String responseString, Class Class) {
         if (statusCode == 888 || statusCode == 889) { // IMAGE
             if (statusCode == 888)
                 callback.webAPISuccess("888", "Success", responseString + "", Class);

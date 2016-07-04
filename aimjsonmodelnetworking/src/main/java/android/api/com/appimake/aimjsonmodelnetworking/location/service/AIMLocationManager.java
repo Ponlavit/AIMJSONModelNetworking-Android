@@ -3,13 +3,13 @@ package android.api.com.appimake.aimjsonmodelnetworking.location.service;
 import android.Manifest;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMArrayList;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMDateTime;
-import android.api.com.appimake.aimjsonmodelnetworking.intf.iGetString;
+import android.api.com.appimake.aimjsonmodelnetworking.intf.AIMIGetString;
 import android.api.com.appimake.aimjsonmodelnetworking.location.intf.AIMIReciveLocationChange;
 import android.api.com.appimake.aimjsonmodelnetworking.location.models.AIMGPSLog;
 import android.api.com.appimake.aimjsonmodelnetworking.location.models.AIMGPSTrakingModel;
 import android.api.com.appimake.aimjsonmodelnetworking.repository.AIMObjectFactory;
 import android.api.com.appimake.aimjsonmodelnetworking.webapi.AIMWebAPIUpdateObject;
-import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.IWebAPINotification;
+import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.AIMIWebAPINotification;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by nattapongr on 8/24/15 AD.
  */
-public class AIMLocationManager implements LocationListener, IWebAPINotification {
+public class AIMLocationManager implements LocationListener, AIMIWebAPINotification {
 
     public static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 144;
     public static String[] PERMISSIONS_ACCESS_FINE_LOCATION = {Manifest.permission.ACCESS_FINE_LOCATION};
@@ -230,7 +230,7 @@ public class AIMLocationManager implements LocationListener, IWebAPINotification
         return (rad * 180.0 / Math.PI);
     }
 
-    public void getAddressFromCoordinate(double lat, double lon, iGetString callBack, Class Class) {
+    public void getAddressFromCoordinate(double lat, double lon, AIMIGetString callBack, Class Class) {
         Geocoder geocoder = new Geocoder(mContext, Locale.getDefault());
         String address = "";
         String city = "";
@@ -266,7 +266,7 @@ public class AIMLocationManager implements LocationListener, IWebAPINotification
         }
     }
 
-    public void getAddress(iGetString callBack, Class Class) {
+    public void getAddress(AIMIGetString callBack, Class Class) {
         Geocoder geocoder = new Geocoder(mContext, Locale.getDefault());
         String address = "";
         if (currentLocation != null) {

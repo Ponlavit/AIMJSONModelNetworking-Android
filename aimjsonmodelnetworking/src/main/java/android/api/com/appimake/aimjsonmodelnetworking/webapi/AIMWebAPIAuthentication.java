@@ -1,9 +1,9 @@
 package android.api.com.appimake.aimjsonmodelnetworking.webapi;
 
+import android.api.com.appimake.aimjsonmodelnetworking.AIMConfig;
 import android.api.com.appimake.aimjsonmodelnetworking.authentication.models.AIMAuthen;
-import android.api.com.appimake.aimjsonmodelnetworking.base.AIMConfig;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.converter.UnicodeConverter;
-import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.IWebAPINotification;
+import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.AIMIWebAPINotification;
 import android.net.Uri;
 
 import java.net.HttpURLConnection;
@@ -28,7 +28,7 @@ public class AIMWebAPIAuthentication {
         return ourInstance;
     }
 
-    public synchronized void authen(String url, final AIMAuthen info, final IWebAPINotification callback, final Class Class) {
+    public synchronized void authen(String url, final AIMAuthen info, final AIMIWebAPINotification callback, final Class Class) {
         this.url = url;
         json = UnicodeConverter.unicodeEscapedString(info.toJSONLocalString());
         upload = info;
@@ -44,7 +44,7 @@ public class AIMWebAPIAuthentication {
         }).start();
     }
 
-    private void postUpload(final IWebAPINotification callback, Class Class) {
+    private void postUpload(final AIMIWebAPINotification callback, Class Class) {
 
         timeOut(callback, Class);
 
@@ -70,7 +70,7 @@ public class AIMWebAPIAuthentication {
             callback.webAPIFailed("404", "Check your internet connection", Class);
     }
 
-    private void timeOut(final IWebAPINotification callback, final Class Class) {
+    private void timeOut(final AIMIWebAPINotification callback, final Class Class) {
         tm = new Timer();
         tm.schedule(new TimerTask() {
             @Override

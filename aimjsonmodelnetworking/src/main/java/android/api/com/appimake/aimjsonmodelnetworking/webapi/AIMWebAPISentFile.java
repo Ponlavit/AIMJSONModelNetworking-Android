@@ -1,8 +1,8 @@
 package android.api.com.appimake.aimjsonmodelnetworking.webapi;
 
+import android.api.com.appimake.aimjsonmodelnetworking.AIMConfig;
 import android.api.com.appimake.aimjsonmodelnetworking.authentication.AIMCurrentUser;
-import android.api.com.appimake.aimjsonmodelnetworking.base.AIMConfig;
-import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.IWebAPINotification;
+import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.AIMIWebAPINotification;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -28,11 +28,11 @@ public class AIMWebAPISentFile {
         return ourInstance;
     }
 
-    public void sent(String key, String url, File file, String name, String type, final IWebAPINotification callback, final Class Class) {
+    public void sent(String key, String url, File file, String name, String type, final AIMIWebAPINotification callback, final Class Class) {
         sent(key, url, file, name, type, callback, Class, 10);
     }
 
-    public void sent(final String key, final String url, final File file, final String name, final String type, final IWebAPINotification callback, final Class Class, final long numberOfDayCache) {
+    public void sent(final String key, final String url, final File file, final String name, final String type, final AIMIWebAPINotification callback, final Class Class, final long numberOfDayCache) {
 
         new Thread(new Runnable() {
             @Override
@@ -46,7 +46,7 @@ public class AIMWebAPISentFile {
         }).start();
     }
 
-    public synchronized void postUpload(String key, File file, String name, String type, final IWebAPINotification callback, Class Class, String urlS, long numberOfDayCache) {
+    public synchronized void postUpload(String key, File file, String name, String type, final AIMIWebAPINotification callback, Class Class, String urlS, long numberOfDayCache) {
 
         int bytesRead, bytesAvailable, bufferSize;
         byte[] buffer;

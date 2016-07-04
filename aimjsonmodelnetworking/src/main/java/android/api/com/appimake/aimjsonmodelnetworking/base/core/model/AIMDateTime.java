@@ -1,7 +1,7 @@
 package android.api.com.appimake.aimjsonmodelnetworking.base.core.model;
 
 
-import android.api.com.appimake.aimjsonmodelnetworking.base.AIMConfig;
+import android.api.com.appimake.aimjsonmodelnetworking.AIMConfig;
 
 import java.util.Date;
 
