@@ -229,6 +229,8 @@ public abstract class AIMModel implements Serializable, IJSONEnable {
                                 aField.set(this, newValue);
                             } else if (aField.getType().equals(ArrayList.class)) {
                                 aField.set(this, newValue);
+                            } else if (aField.getType().equals(List.class)) {
+                                aField.set(this, newValue);
                             } else if (String.class.isAssignableFrom(aField.getType()))
                                 aField.set(this, newValue.toString().trim());
                             else if (AIMDateTime.class.isAssignableFrom(aField.getType())) {
@@ -278,6 +280,8 @@ public abstract class AIMModel implements Serializable, IJSONEnable {
                                 aField.set(this, newValue);
                             } else if (aField.getType().equals(ArrayList.class)) {
                                 aField.set(this, newValue);
+                            } else if (aField.getType().equals(List.class)) {
+                                aField.set(this, newValue);
                             } else if (String.class.isAssignableFrom(aField.getType()))
                                 aField.set(this, newValue.toString().trim());
                             else if (AIMDateTime.class.isAssignableFrom(aField.getType())) {
@@ -322,6 +326,8 @@ public abstract class AIMModel implements Serializable, IJSONEnable {
                             } else if (aField.getType().equals(HashMap.class)) {
                                 aField.set(this, newValue);
                             } else if (aField.getType().equals(ArrayList.class)) {
+                                aField.set(this, newValue);
+                            } else if (aField.getType().equals(List.class)) {
                                 aField.set(this, newValue);
                             } else if (aField.getType().equals(Object.class)) {
                                 aField.set(this, newValue);
