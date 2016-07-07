@@ -7,7 +7,7 @@ Maven
 <dependency>
   <groupId>android.api.com.appimake</groupId>
   <artifactId>aimjsonmodelnetworking</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <type>pom</type>
 </dependency>
 ```
