@@ -3,9 +3,11 @@ package android.api.com.appimake.aimcore;
 import android.api.com.appimake.aimjsonmodelnetworking.base.AIMFragmentActivity;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.enumulation.UpdatePolicy;
 import android.api.com.appimake.aimjsonmodelnetworking.base.core.model.AIMDateTime;
+import android.api.com.appimake.aimjsonmodelnetworking.helper.ScreenSize;
 import android.api.com.appimake.aimjsonmodelnetworking.questionnaire.inf.AIMQTNDataInterface;
 import android.api.com.appimake.aimjsonmodelnetworking.questionnaire.models.QTNModel;
 import android.api.com.appimake.aimjsonmodelnetworking.questionnaire.models.obj.OBJResults;
+import android.api.com.appimake.aimjsonmodelnetworking.questionnaire.models.style.QTNStyle;
 import android.api.com.appimake.aimjsonmodelnetworking.questionnaire.modules.AIMQuestionnaire;
 import android.api.com.appimake.aimjsonmodelnetworking.webapi.AIMWebAPISearchObject;
 import android.api.com.appimake.aimjsonmodelnetworking.webapi.intf.AIMIWebAPINotification;
@@ -59,6 +61,16 @@ public class TestQuestionnaire extends AIMFragmentActivity implements AIMIWebAPI
                     @Override
                     public AIMQTNDataInterface setCallBack() {
                         return TestQuestionnaire.this;
+                    }
+
+                    @Override
+                    public float setMarginInDP() {
+                        return ScreenSize.metrics.density * 8;
+                    }
+
+                    @Override
+                    public QTNStyle setStyle() {
+                        return new QTNStyle();
                     }
                 };
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
